@@ -48,7 +48,8 @@ public class ClassWeather extends HttpServlet {
 		String apiUrl="https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+apikey;
 		
 	try {	
-		URL url=new URL(apiUrl);
+		URI uri = new URI(apiUrl);
+		URL url = uri.toURL();;
 		HttpURLConnection conn=(HttpURLConnection)url.openConnection();
 		conn.setRequestMethod("GET");
 		InputStream  inputstream=conn.getInputStream();
@@ -98,7 +99,11 @@ public class ClassWeather extends HttpServlet {
 	}
 	catch (IOException e) {
         e.printStackTrace();
-    }
+    }catch (URISyntaxException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
 	
 	request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
